@@ -2,15 +2,23 @@ using UnityEngine;
 
 public class PlayerDeath : MonoBehaviour
 {
-    public Transform cameraTransform;
-    public float deathOffset = -6f;
+    public float deathY = -15f;
+    private bool isDead = false;
 
     void Update()
     {
-        if (transform.position.y < cameraTransform.position.y + deathOffset)
+        if (isDead) return;
+
+        if (transform.position.y < deathY)
         {
-            Debug.Log("GAME OVER");
-            Time.timeScale = 0f;
+            Die();
         }
+    }
+
+    void Die()
+    {
+        isDead = true;
+        Time.timeScale = 0f;
+        GameOverManager.instance.GameOver();
     }
 }
